@@ -327,6 +327,7 @@ def mnk(x, y, fmt = None, file = None, precision = 2):
                 '<y>':    ['$\overline{y}$', '{:.' + str(precision) + 'e}'],
                 'sy':     ['$\sigma_y^2$',   '{:.' + str(precision) + 'e}'],
                 'rxy':    ['$r_{xy}$',       '{:.' + str(precision) + 'e}'],
+                'r  ':    ['$r$',            '{:.' + str(precision) + 'e}'],
                 'a':      ['$a$',            '{:.' + str(precision) + 'f}'],
                 'da':     ['$\Delta a$',     '{:.' + str(precision) + 'f}'],
                 'b':      ['$b$',            '{:.' + str(precision) + 'f}'],
@@ -337,6 +338,8 @@ def mnk(x, y, fmt = None, file = None, precision = 2):
     __sy = (y**2).mean() - (y.mean())**2
 
     __rxy = (y*x).mean() - (y.mean() * x.mean())
+
+    __r = __rxy / np.sqrt(__sx * __sy)
 
     __a  = __rxy / __sx
     __da = (1/(len(x) - 2) * (__sy/__sx - __a**2))**(0.5)
@@ -350,6 +353,7 @@ def mnk(x, y, fmt = None, file = None, precision = 2):
         '<y>':   [y.mean()],
         'sy':    [__sy],
         'rxy':   [__rxy],
+        'r':     [__r],
         'a':     [__a],
         'da':    [__da],
         'b':     [__b],
